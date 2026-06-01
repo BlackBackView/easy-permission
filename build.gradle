@@ -1,0 +1,116 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
+    id 'maven-publish'
+}
+
+android {
+    namespace 'com.dep.template'
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 32
+        versionCode 1
+        versionName "1.0.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+        freeCompilerArgs += [
+                '-Xjvm-default=all',
+                '-Xskip-metadata-version-check'
+        ]
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
+
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    archiveClassifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    archiveClassifier = 'javadoc'
+    from android.sourceSets.main.java.srcDirs
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'com.github.[UserName]'
+                artifactId = 'dep-template-lib'
+                version = '1.0.0'
+
+                pom {
+                    name = 'Dependency Template Library'
+                    description = 'A dependency library template for Android'
+                    url = 'https://github.com/[UserName]/dep-template-lib'
+
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = '[UserName]'
+                            name = '[UserName]'
+                            email = 'your_email@example.com'
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:git://github.com/[UserName]/dep-template-lib.git'
+                        developerConnection = 'scm:git:ssh://github.com/[UserName]/dep-template-lib.git'
+                        url = 'https://github.com/[UserName]/dep-template-lib'
+                    }
+                }
+            }
+        }
+    }
+}
