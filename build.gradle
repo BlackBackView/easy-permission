@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdk 24
         targetSdk 32
-        versionCode 1
-        versionName "1.0.0"
+        versionCode VERSION_CODE as Integer
+        versionName VERSION_NAME
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -45,7 +45,7 @@ android {
 
     publishing {
         singleVariant('release') {
-            withSourcesJar()
+//            withSourcesJar()
         }
     }
 }
@@ -88,7 +88,7 @@ afterEvaluate {
 
                 groupId = 'com.github.BlackBackView'
                 artifactId = 'easy-permission'
-                version = '1.0.0'
+                version = VERSION_NAME
 
                 pom {
                     name = 'Easy Permission'

@@ -20,6 +20,14 @@ object PermissionExt {
     private var descriptionPopUp: BasePopupView? = null
 
     /**
+     * 检查一组权限是否全部已授予
+     * 用法: listOf(perm1, perm2).isAllGranted(context)
+     */
+    fun List<String>.isAllGranted(context: Context): Boolean {
+        return XXPermissions.isGranted(context, *this.toTypedArray())
+    }
+
+    /**
      * 显示顶部权限描述弹窗
      */
     private fun showDescription(context: Context, permissions: List<String>, description: String) {
