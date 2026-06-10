@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.dep.template'
+    namespace 'com.bbv.easypermission'
     compileSdk 32
 
     defaultConfig {
@@ -62,6 +62,12 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+
+
+    
+    implementation 'com.github.getActivity:XXPermissions:18.5'
+    implementation 'com.github.li-xiaojun:XPopup:2.10.0'
+
 }
 
 task sourcesJar(type: Jar) {
@@ -80,14 +86,14 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.[UserName]'
-                artifactId = 'dep-template-lib'
+                groupId = 'com.github.BlackBackView'
+                artifactId = 'easy-permission'
                 version = '1.0.0'
 
                 pom {
-                    name = 'Dependency Template Library'
-                    description = 'A dependency library template for Android'
-                    url = 'https://github.com/[UserName]/dep-template-lib'
+                    name = 'Easy Permission'
+                    description = 'A simple permission helper library based on XXPermissions'
+                    url = 'https://github.com/BlackBackView/easy-permission'
 
                     licenses {
                         license {
@@ -98,16 +104,16 @@ afterEvaluate {
 
                     developers {
                         developer {
-                            id = '[UserName]'
-                            name = '[UserName]'
-                            email = 'your_email@example.com'
+                            id = 'BlackBackView'
+                            name = 'BlackBackView'
+                            email = 'gql2012@foxmail.com'
                         }
                     }
 
                     scm {
-                        connection = 'scm:git:git://github.com/[UserName]/dep-template-lib.git'
-                        developerConnection = 'scm:git:ssh://github.com/[UserName]/dep-template-lib.git'
-                        url = 'https://github.com/[UserName]/dep-template-lib'
+                        connection = 'scm:git:git://github.com/BlackBackView/easy-permission.git'
+                        developerConnection = 'scm:git:ssh://github.com/BlackBackView/easy-permission.git'
+                        url = 'https://github.com/BlackBackView/easy-permission'
                     }
                 }
             }

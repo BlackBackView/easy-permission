@@ -1,5 +1,5 @@
--keep class com.dep.template.** { *; }
--keep interface com.dep.template.** { *; }
+-keep class com.bbv.easypermission.** { *; }
+-keep interface com.bbv.easypermission.** { *; }
 
 -keepattributes *Annotation*
 

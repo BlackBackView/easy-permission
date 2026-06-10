@@ -19,4 +19,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "dep-template-lib"
+rootProject.name = "easy-permission"

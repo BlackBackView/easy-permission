@@ -1,4 +1,4 @@
-package com.dep.template.utils
+package com.bbv.easypermission.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

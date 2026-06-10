@@ -1,4 +1,4 @@
-package com.dep.template.module
+package com.bbv.easypermission.module
 
 import android.app.Application
 

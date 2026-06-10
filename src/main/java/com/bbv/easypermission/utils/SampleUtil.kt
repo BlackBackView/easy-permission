@@ -1,4 +1,4 @@
-package com.dep.template.utils
+package com.bbv.easypermission.utils
 
 import android.content.Context
 import android.widget.Toast

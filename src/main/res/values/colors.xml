@@ -7,4 +7,16 @@
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#999999</color>
     <color name="colorTransparent">#00000000</color>
+
+    <color name="colorText1">#111111</color>
+    <color name="colorText2">#222222</color>
+    <color name="colorText3">#333333</color>
+    <color name="colorText4">#444444</color>
+    <color name="colorText5">#555555</color>
+    <color name="colorText6">#666666</color>
+    <color name="colorText7">#777777</color>
+    <color name="colorText8">#888888</color>
+    <color name="colorText9">#999999</color>
+
+
 </resources>
