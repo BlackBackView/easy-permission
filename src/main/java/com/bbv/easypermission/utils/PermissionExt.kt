@@ -49,96 +49,6 @@ object PermissionExt {
 
 
 
-
-    /**
-     * 请求权限带顶部权限描述弹框
-     * @receiver FragmentActivity
-     * @param permission String 权限
-     * @param description String 权限描述
-     * @param failMsg String 失败提示
-     * @param fail Function0<Unit>? 失败回调
-     * @param success Function0<Unit> 完成回调
-     */
-    fun FragmentActivity.requestPermissionWithDescription(permission: String, description: String, failMsg: String, fail: (() -> Unit)? = null, success: () -> Unit) {
-        // 显示描述
-        showDescription(this, listOf(permission), description)
-
-        XXPermissions.with(this)
-            .permission(permission)
-            .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: List<String>, allGranted: Boolean) {
-
-                    // 请求结束隐藏描述
-                    dismissDescription()
-
-                    if (!allGranted) {
-                        fail?.invoke()
-                        this@requestPermissionWithDescription.toast(failMsg)
-                        return
-                    }
-                    success.invoke()
-                }
-
-                override fun onDenied(permissions: List<String>, doNotAskAgain: Boolean) {
-
-                    // 请求结束隐藏描述
-                    dismissDescription()
-
-                    if (doNotAskAgain) {
-                        this@requestPermissionWithDescription.toast("被永久拒绝授权，请手动授予权限")
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
-                        XXPermissions.startPermissionActivity(this@requestPermissionWithDescription, permissions)
-                    } else {
-                        fail?.invoke()
-                        this@requestPermissionWithDescription.toast(failMsg)
-                    }
-                }
-            })
-    }
-
-    /**
-     * 请求权限带顶部权限描述弹框
-     * @receiver Fragment
-     * @param permission String 权限
-     * @param description String 权限描述
-     * @param failMsg String 失败提示
-     * @param fail Function0<Unit>? 失败回调
-     * @param success Function0<Unit> 完成回调
-     */
-    fun Fragment.requestPermissionWithDescription(permission: String, description: String, failMsg: String, fail: (() -> Unit)? = null, success: () -> Unit) {
-
-        // 显示描述
-        showDescription(requireActivity(), listOf(permission), description)
-
-        XXPermissions.with(this)
-            .permission(permission)
-            .request(object : OnPermissionCallback {
-                override fun onGranted(permissions: List<String>, allGranted: Boolean) {
-                    dismissDescription()
-
-                    if (!allGranted) {
-                        fail?.invoke()
-                        this@requestPermissionWithDescription.toast(failMsg)
-                        return
-                    }
-                    success.invoke()
-                }
-
-                override fun onDenied(permissions: List<String>, doNotAskAgain: Boolean) {
-                    dismissDescription()
-
-                    if (doNotAskAgain) {
-                        this@requestPermissionWithDescription.toast("被永久拒绝授权，请手动授予权限")
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
-                        XXPermissions.startPermissionActivity(this@requestPermissionWithDescription, permissions)
-                    } else {
-                        fail?.invoke()
-                        this@requestPermissionWithDescription.toast(failMsg)
-                    }
-                }
-            })
-    }
-
     /**
      * 请求权限带顶部权限描述弹框
      * @receiver FragmentActivity
@@ -190,6 +100,7 @@ object PermissionExt {
      */
     fun Fragment.requestPermissionsWithDescription(permissions: List<String>, description: String, failMsg: String, fail: (() -> Unit)? = null, success: () -> Unit) {
         showDescription(requireActivity(), permissions, description)
+
         XXPermissions.with(this)
             .permission(permissions)
             .request(object : OnPermissionCallback {
