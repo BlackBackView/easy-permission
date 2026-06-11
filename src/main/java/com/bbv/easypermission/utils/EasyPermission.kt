@@ -3,6 +3,7 @@ package com.bbv.easypermission.utils
 import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.bbv.easypermission.utils.EasyPermission.isAllGranted
 import com.hjq.permissions.OnPermissionCallback
 import com.hjq.permissions.XXPermissions
 import com.lxj.xpopup.XPopup
@@ -15,16 +16,15 @@ import com.lxj.xpopup.util.XPopupUtils.dp2px
  * @Author: yang liv
  * @Date: 2025/4/5 21:23
  */
-object PermissionExt {
+object EasyPermission {
 
     private var descriptionPopUp: BasePopupView? = null
 
     /**
      * 检查一组权限是否全部已授予
-     * 用法: listOf(perm1, perm2).isAllGranted(context)
      */
-    fun List<String>.isAllGranted(context: Context): Boolean {
-        return XXPermissions.isGranted(context, *this.toTypedArray())
+    fun isAllGranted(context: Context, permissions: Array<String>): Boolean {
+        return XXPermissions.isGranted(context, permissions)
     }
 
     /**
