@@ -58,16 +58,41 @@ object EasyPermission {
 
 
     /**
+     * 打开权限设置页面（可外部调用）
+     * @param permissions List<String> 权限列表
+     */
+    fun FragmentActivity.openPermissionSettings(permissions: List<String>) {
+        toast("被永久拒绝授权，请手动授予权限")
+        XXPermissions.startPermissionActivity(this, permissions)
+    }
+
+    /**
+     * 打开权限设置页面（可外部调用）
+     * @param permissions List<String> 权限列表
+     */
+    fun Fragment.openPermissionSettings(permissions: List<String>) {
+        toast("被永久拒绝授权，请手动授予权限")
+        XXPermissions.startPermissionActivity(this, permissions)
+    }
+
+    /**
      * 请求权限带顶部权限描述弹框
      * @receiver FragmentActivity
      * @param permissions List<String> 权限列表
      * @param description String 权限描述
      * @param failMsg String 失败提示
      * @param fail Function0<Unit>? 失败回调
+     * @param onPermanentDeny Function0<Unit>? 永久拒绝时的回调（null=执行默认逻辑，传空lambda=忽略）
      * @param success Function0<Unit> 完成回调
      */
-    fun FragmentActivity.requestPermissionsWithDescription(permissions: List<String>, description: String, failMsg: String, fail: (() -> Unit)? = null, success: () -> Unit) {
-
+    fun FragmentActivity.requestPermissionsWithDescription(
+        permissions: List<String>,
+        description: String,
+        failMsg: String,
+        fail: (() -> Unit)? = null,
+        onPermanentDeny: (() -> Unit)? = null,
+        success: () -> Unit
+    ) {
         showDescription(this, permissions, description)
 
         XXPermissions.with(this)
@@ -86,9 +111,11 @@ object EasyPermission {
                 override fun onDenied(permissions: List<String>, doNotAskAgain: Boolean) {
                     dismissDescription()
                     if (doNotAskAgain) {
-                        this@requestPermissionsWithDescription.toast("被永久拒绝授权，请手动授予权限")
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
-                        XXPermissions.startPermissionActivity(this@requestPermissionsWithDescription, permissions)
+                        if (onPermanentDeny != null) {
+                            onPermanentDeny.invoke()
+                        } else {
+                            openPermissionSettings(permissions)
+                        }
                     } else {
                         fail?.invoke()
                         this@requestPermissionsWithDescription.toast(failMsg)
@@ -104,9 +131,17 @@ object EasyPermission {
      * @param description String 权限描述
      * @param failMsg String 失败提示
      * @param fail Function0<Unit>? 失败回调
+     * @param onPermanentDeny Function0<Unit>? 永久拒绝时的回调（null=执行默认逻辑，传空lambda=忽略）
      * @param success Function0<Unit> 完成回调
      */
-    fun Fragment.requestPermissionsWithDescription(permissions: List<String>, description: String, failMsg: String, fail: (() -> Unit)? = null, success: () -> Unit) {
+    fun Fragment.requestPermissionsWithDescription(
+        permissions: List<String>,
+        description: String,
+        failMsg: String,
+        fail: (() -> Unit)? = null,
+        onPermanentDeny: (() -> Unit)? = null,
+        success: () -> Unit
+    ) {
         showDescription(requireActivity(), permissions, description)
 
         XXPermissions.with(this)
@@ -125,9 +160,11 @@ object EasyPermission {
                 override fun onDenied(permissions: List<String>, doNotAskAgain: Boolean) {
                     dismissDescription()
                     if (doNotAskAgain) {
-                        this@requestPermissionsWithDescription.toast("被永久拒绝授权，请手动授予权限")
-                        // 如果是被永久拒绝就跳转到应用权限系统设置页面
-                        XXPermissions.startPermissionActivity(this@requestPermissionsWithDescription, permissions)
+                        if (onPermanentDeny != null) {
+                            onPermanentDeny.invoke()
+                        } else {
+                            openPermissionSettings(permissions)
+                        }
                     } else {
                         fail?.invoke()
                         this@requestPermissionsWithDescription.toast(failMsg)
