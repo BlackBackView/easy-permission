@@ -77,9 +77,9 @@ VERSION_CODE=1
 1. **将代码推送到 GitHub**：
    ```bash
    git add .
-   git commit -m "发布版本 1.0.0"
-   git tag -a 1.0.0 -m "版本 1.0.0"
-   git push origin main --tags
+   git commit -m "发布版本 1.0.5"
+   git tag -a 1.0.5 -m "版本 1.0.5"
+   git push origin master --tags
    ```
 
 2. **JitPack 会自动构建**：
