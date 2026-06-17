@@ -16,7 +16,7 @@ import com.lxj.xpopup.enums.PopupAnimation
 class TopPermissionPopup(context: Context, private val msg: String) : PositionPopupView(context) {
 
     // 1. 引入你的自定义 XML 布局
-    override fun getImplLayoutId(): Int = R.layout.layout_custom_top_banner
+    override fun getImplLayoutId(): Int = R.layout.bbv_top_permission_banner
 
     override fun onCreate() {
         super.onCreate()

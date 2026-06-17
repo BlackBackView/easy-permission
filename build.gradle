@@ -7,11 +7,11 @@ plugins {
 
 android {
     namespace 'com.bbv.easypermission'
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         minSdk 24
-        targetSdk 30
+        targetSdk 31
         versionCode VERSION_CODE as Integer
         versionName VERSION_NAME
 
